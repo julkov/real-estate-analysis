@@ -1,5 +1,5 @@
 import unittest
-from crawler_klasy import RentalScraper
+from crawler_klasy_final import RentalScraper
 from bs4 import BeautifulSoup
 
 
@@ -22,26 +22,26 @@ class TestRentalScraper(unittest.TestCase):
         """)
         assert result == ["url1"]
 
-
     def test_address(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
                 <html>
                     <body>
                         <div class="apartment-title">
-                            <font class="apartment-header">Kamer te huur Wolfgang Straat, Amsterdam</font>
+                            <font class="apartment-header">
+                            Kamer te huur Wolfgang Straat, Amsterdam
+                            </font>
                         </div>
                     </body>
                 </html>
                 """, "html.parser")
-
-        street, city  = scraper.address(soup)
+        street, city = scraper.address(soup)
         assert street == "Wolfgang Straat"
         assert city == "Amsterdam"
 
     def test_price(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <font class="apartment-price">
@@ -56,7 +56,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_apartment_type(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="advert-appartment" title="STUDIO-ROOM">
@@ -69,7 +69,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_rooms(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="room-no">2</div>
@@ -81,7 +81,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_surface(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="advert-surface">
@@ -95,7 +95,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_furnished(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="advert-furnished">
@@ -109,7 +109,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_description(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="contentToToggle">Great place to rent.</div>
@@ -118,9 +118,6 @@ class TestRentalScraper(unittest.TestCase):
         """, "html.parser")
         description = scraper.description(soup)
         assert description == "Great place to rent."
-
-    # def test_transtation(self):
-    #     scraper = RentalScraper()
 
     def test_school(self):
         scraper = RentalScraper()
@@ -148,7 +145,7 @@ class TestRentalScraper(unittest.TestCase):
 
     def test_photos(self):
         scraper = RentalScraper()
-        soup = BeautifulSoup( """
+        soup = BeautifulSoup("""
             <html>
                 <body>
                     <div class="main-PhotoModal-content">
@@ -161,7 +158,3 @@ class TestRentalScraper(unittest.TestCase):
         """, "html.parser")
         photos = scraper.photos(soup)
         assert photos == ["https://resources.directwonen.nl/image/"]
-
-
-
-
